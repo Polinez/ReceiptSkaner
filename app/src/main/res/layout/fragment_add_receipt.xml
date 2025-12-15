@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imgPreview"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:background="#DDDDDD"
         android:scaleType="centerCrop"
         android:layout_marginBottom="10dp"
@@ -26,8 +26,7 @@
         android:id="@+id/editStore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nazwa sklepu (np. Biedronka)" />
-
+        android:hint="Nazwa sklepu" />
 
     <EditText
         android:id="@+id/editDate"
@@ -37,6 +36,16 @@
         android:focusable="false"
         android:clickable="true"
         android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:id="@+id/editWarranty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Data końca gwarancji "
+        android:focusable="false"
+        android:clickable="true"
+        android:layout_marginTop="10dp"
+        android:textColor="#C62828"/>
 
     <EditText
         android:id="@+id/editAmount"

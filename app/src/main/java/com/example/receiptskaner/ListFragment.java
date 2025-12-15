@@ -48,14 +48,20 @@ public class ListFragment extends Fragment {
             TextView txtStore = box.findViewById(R.id.txtStore);
             TextView txtAmount = box.findViewById(R.id.txtAmount);
             TextView txtDate = box.findViewById(R.id.txtDate);
+            TextView txtWarranty = box.findViewById(R.id.txtWarranty);
             ImageView imgReceipt = box.findViewById(R.id.imgReceipt);
 
             txtStore.setText(receipt.getStoreName());
             txtAmount.setText(receipt.getAmount() + " zł");
             txtDate.setText(receipt.getPurchaseDate());
 
-            String path = receipt.getPhotoUri();
+            if (receipt.getWarrantyDate() != null && !receipt.getWarrantyDate().isEmpty()) {
+                txtWarranty.setText("Gwarancja: " + receipt.getWarrantyDate());
+            } else {
+                txtWarranty.setText("");
+            }
 
+            String path = receipt.getPhotoUri();
             if (path != null && !path.isEmpty()) {
                 File imgFile = new File(path);
                 if (imgFile.exists()) {
@@ -65,6 +71,21 @@ public class ListFragment extends Fragment {
             } else {
                 imgReceipt.setImageResource(android.R.drawable.ic_menu_camera);
             }
+
+            // click in element
+            box.setOnClickListener(v -> {
+                ReceiptDetailsFragment detailsFragment = new ReceiptDetailsFragment();
+
+                Bundle args = new Bundle();
+                args.putInt("RECEIPT_ID", receipt.getId());
+                detailsFragment.setArguments(args);
+
+                // open fragment
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, detailsFragment)
+                        .addToBackStack(null)
+                        .commit();
+            });
 
             container.addView(box);
         }

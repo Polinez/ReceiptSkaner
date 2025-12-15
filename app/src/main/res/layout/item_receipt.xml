@@ -14,8 +14,7 @@
         android:layout_height="60dp"
         android:layout_marginEnd="16dp"
         android:src="@android:drawable/ic_menu_camera"
-        android:scaleType="centerCrop"
-        android:background="#DDDDDD"/>
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,16 +33,14 @@
                 android:layout_weight="1"
                 android:text="Nazwa Sklepu"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#000000"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0.00 PLN"
-                android:textSize="18sp"
-                android:textColor="#000000"/>
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -52,14 +49,23 @@
             android:orientation="horizontal"
             android:layout_marginTop="4dp">
 
-
             <TextView
                 android:id="@+id/txtDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Data zakupu"
                 android:textSize="14sp"
-                android:textColor="#666666"/>
+                android:textColor="#666666"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:id="@+id/txtWarranty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gwarancja"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
         </LinearLayout>
     </LinearLayout>
 

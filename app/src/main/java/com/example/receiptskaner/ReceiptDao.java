@@ -20,4 +20,7 @@ public interface ReceiptDao {
     // Returns LiveData
     @Query("SELECT * FROM receipt ORDER BY id DESC")
     LiveData<List<Receipt>> getAllReceipts();
+
+    @Query("SELECT * FROM receipt WHERE id = :id")
+    Receipt getReceiptById(int id);
 }

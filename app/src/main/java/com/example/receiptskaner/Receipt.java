@@ -16,6 +16,9 @@ public class Receipt {
     @ColumnInfo(name = "purchase_date")
     private String purchaseDate;
 
+    @ColumnInfo(name = "warranty_date")
+    private String warrantyDate;
+
     @ColumnInfo(name = "amount")
     private double amount;
 
@@ -24,10 +27,11 @@ public class Receipt {
     @ColumnInfo(name = "photo_uri")
     private String photoUri;
 
-    public Receipt(String storeName, String purchaseDate, double amount, String photoUri) {
+    public Receipt(String storeName, String purchaseDate, double amount, String warrantyDate, String photoUri) {
         this.storeName = storeName;
         this.purchaseDate = purchaseDate;
         this.amount = amount;
+        this.warrantyDate = warrantyDate;
         this.photoUri = photoUri;
     }
 
@@ -53,6 +57,13 @@ public class Receipt {
 
     public void setPurchaseDate(String purchaseDate) {
         this.purchaseDate = purchaseDate;
+    }
+
+    public String getWarrantyDate() {
+        return warrantyDate;
+    }
+    public void setWarrantyDate(String warrantyDate) {
+        this.warrantyDate = warrantyDate;
     }
 
     public double getAmount() {
