@@ -13,29 +13,25 @@ public class ReceiptViewModel extends AndroidViewModel {
 
     public ReceiptViewModel(@NonNull Application application) {
         super(application);
-        // Download instance of db
         ReceiptDatabase db = ReceiptDatabase.getDatabase(application);
         receiptDao = db.receiptDao();
-        // LiveData
+
         allReceipts = receiptDao.getAllReceipts();
     }
 
-    // This method will be observed by MainActivity (Fragment)
     public LiveData<List<Receipt>> getAllReceipts() {
         return allReceipts;
     }
 
-    // Method to add - runs on a background thread (doesn't block the UI!)
-    public void addReceipt(Receipt receipt) {
-        ReceiptDatabase.databaseWriteExecutor.execute(() -> {
+    public void insert(Receipt receipt) {
+        new Thread(() -> {
             receiptDao.insert(receipt);
-        });
+        }).start();
     }
 
-    // Method to delete
-    public void deleteReceipt(Receipt receipt) {
-        ReceiptDatabase.databaseWriteExecutor.execute(() -> {
+    public void delete(Receipt receipt) {
+        new Thread(() -> {
             receiptDao.delete(receipt);
-        });
+        }).start();
     }
 }

@@ -19,18 +19,15 @@ public class Receipt {
     @ColumnInfo(name = "amount")
     private double amount;
 
-    @ColumnInfo(name = "category")
-    private String category;
 
     // Path to photo
     @ColumnInfo(name = "photo_uri")
     private String photoUri;
 
-    public Receipt(String storeName, String purchaseDate, double amount, String category, String photoUri) {
+    public Receipt(String storeName, String purchaseDate, double amount, String photoUri) {
         this.storeName = storeName;
         this.purchaseDate = purchaseDate;
         this.amount = amount;
-        this.category = category;
         this.photoUri = photoUri;
     }
 
@@ -66,13 +63,6 @@ public class Receipt {
         this.amount = amount;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
 
     public String getPhotoUri() {
         return photoUri;
