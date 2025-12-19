@@ -44,8 +44,7 @@
         android:hint="Data końca gwarancji "
         android:focusable="false"
         android:clickable="true"
-        android:layout_marginTop="10dp"
-        android:textColor="#C62828"/>
+        android:layout_marginTop="10dp" />
 
     <EditText
         android:id="@+id/editAmount"

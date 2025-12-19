@@ -33,7 +33,8 @@ public class ReceiptDetailsFragment extends Fragment {
         }
 
         TextView txtStore = view.findViewById(R.id.detailStore);
-        TextView txtDate = view.findViewById(R.id.detailDate);
+        TextView txtBuyDate = view.findViewById(R.id.detailDate);
+        TextView txtWarranty = view.findViewById(R.id.detailWarranty);
         TextView txtAmount = view.findViewById(R.id.detailAmount);
         ImageView imgView = view.findViewById(R.id.detailImage);
         Button btnDelete = view.findViewById(R.id.btnDelete);
@@ -48,7 +49,8 @@ public class ReceiptDetailsFragment extends Fragment {
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
                         txtStore.setText(currentReceipt.getStoreName());
-                        txtDate.setText("Data: " + currentReceipt.getPurchaseDate());
+                        txtBuyDate.setText("Data zakupu: " + currentReceipt.getPurchaseDate());
+                        txtWarranty.setText("Gwarancja do: " + currentReceipt.getWarrantyDate());
                         txtAmount.setText(currentReceipt.getAmount() + " zł");
 
                         // Loading overview photo

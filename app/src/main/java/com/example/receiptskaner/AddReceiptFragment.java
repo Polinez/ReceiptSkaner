@@ -1,7 +1,7 @@
 package com.example.receiptskaner;
 
 import android.app.Activity;
-import android.app.AlarmManager;
+
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -40,6 +40,7 @@ public class AddReceiptFragment extends Fragment {
     private Calendar alarmCalendar = Calendar.getInstance();
     private boolean alarmSet = false;
 
+    // Camera launcher
     ActivityResultLauncher<Intent> takePictureLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -74,6 +75,7 @@ public class AddReceiptFragment extends Fragment {
         editWarranty.setOnClickListener(v -> showCalendar(editWarranty, alarmCalendar));
 
         btnTakePhoto.setOnClickListener(v -> {
+            // Intencja niejawna
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             takePictureLauncher.launch(takePictureIntent);
         });
@@ -125,30 +127,10 @@ public class AddReceiptFragment extends Fragment {
         // Save to db
         receiptViewModel.insert(new Receipt(store, date, amount, warranty, photoPath));
 
-        // Set alarm
-        if (alarmSet) {
-            setAlarm(store);
-        }
 
         Toast.makeText(getContext(), "Zapisano!", Toast.LENGTH_SHORT).show();
         getParentFragmentManager().popBackStack();
     }
 
-    private void setAlarm(String storeName) {
-        AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
 
-        // Initial receiver
-        Intent intent = new Intent(requireContext(), WarrantyReceiver.class);
-        intent.putExtra("store_name", storeName);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                requireContext(),
-                (int) System.currentTimeMillis(),
-                intent,
-                PendingIntent.FLAG_IMMUTABLE);
-
-        if (alarmManager != null) {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10000, pendingIntent);
-        }
-    }
 }
