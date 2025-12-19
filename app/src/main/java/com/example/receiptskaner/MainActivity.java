@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
             requestPermission();
         }
 
-        receiptViewModel = new ViewModelProvider(this).get(ReceiptViewModel.class);
-
         if (savedInstanceState == null) {
             loadFragment(new ListFragment(), false);
         }
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             for (Receipt receipt : receipts) {
                 long endOfWarranty = changeDateToMillis(receipt.getWarrantyDate());
 
-                if (endOfWarranty > today && (endOfWarranty - today) < sevenDays) {
+                if (endOfWarranty >= today && (endOfWarranty - today) < sevenDays) {
                     Intent intent = new Intent(this, WarrantyReceiver.class);
                     intent.putExtra("store_name", receipt.getStoreName());
                     sendBroadcast(intent);

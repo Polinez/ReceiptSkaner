@@ -3,7 +3,6 @@ package com.example.receiptskaner;
 import android.app.Activity;
 
 import android.app.DatePickerDialog;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -37,8 +36,6 @@ public class AddReceiptFragment extends Fragment {
     private ReceiptViewModel receiptViewModel;
     private Bitmap takenImageBitmap;
 
-    private Calendar alarmCalendar = Calendar.getInstance();
-    private boolean alarmSet = false;
 
     // Camera launcher
     ActivityResultLauncher<Intent> takePictureLauncher = registerForActivityResult(
@@ -69,10 +66,10 @@ public class AddReceiptFragment extends Fragment {
         receiptViewModel = new ViewModelProvider(this).get(ReceiptViewModel.class);
 
         // buy Date
-        editDate.setOnClickListener(v -> showCalendar(editDate, null));
+        editDate.setOnClickListener(v -> showCalendar(editDate));
 
         // Warranty date
-        editWarranty.setOnClickListener(v -> showCalendar(editWarranty, alarmCalendar));
+        editWarranty.setOnClickListener(v -> showCalendar(editWarranty));
 
         btnTakePhoto.setOnClickListener(v -> {
             // Intencja niejawna
@@ -85,15 +82,10 @@ public class AddReceiptFragment extends Fragment {
         return view;
     }
 
-    private void showCalendar(EditText target, Calendar calendarToSet) {
+    private void showCalendar(EditText target) {
         final Calendar c = Calendar.getInstance();
         DatePickerDialog dialog = new DatePickerDialog(requireContext(), (view, year, month, day) -> {
             target.setText(year + "-" + (month + 1) + "-" + day);
-            if (calendarToSet != null) {
-                // Set alarm on 9:00
-                calendarToSet.set(year, month, day, 9, 0, 0);
-                alarmSet = true;
-            }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
         dialog.show();
     }
@@ -112,7 +104,7 @@ public class AddReceiptFragment extends Fragment {
 
     private void saveReceipt() {
         String store = editStore.getText().toString();
-        String date = editDate.getText().toString();
+        String buyDate = editDate.getText().toString();
         String warranty = editWarranty.getText().toString();
         String amountStr = editAmount.getText().toString();
 
@@ -125,7 +117,7 @@ public class AddReceiptFragment extends Fragment {
         String photoPath = (takenImageBitmap != null) ? savePhotoToJPG(takenImageBitmap) : "";
 
         // Save to db
-        receiptViewModel.insert(new Receipt(store, date, amount, warranty, photoPath));
+        receiptViewModel.insert(new Receipt(store, buyDate, amount, warranty, photoPath));
 
 
         Toast.makeText(getContext(), "Zapisano!", Toast.LENGTH_SHORT).show();
